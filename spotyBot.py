@@ -9,9 +9,9 @@ def handle(msg):
         try:
             if msg['text'] == '/start' : raise Exception('Hi ' + msg['chat']['first_name'])
             message = msg['text'].split()
-            if len(message) != 4: raise Exception('more or less parameters')
+            if len(message) != 4: raise Exception('your message format is incorrect.you sent more or less parameters than its need')
             if message[0] != '/notif': raise Exception('follow command. you start your condition with /notif')
-            if not str(message[1]).isalpha(): raise Exception('incorrect symbol')
+            if not str(message[1]).isalpha(): raise Exception('your symbol pair is not exist on binance market unfortunately')
             if str(message[2]).isalpha(): raise Exception('your low value must be float number')
             if str(message[3]).isalpha(): raise Exception('your high value must be float number')
             low = float(message[2])
@@ -31,7 +31,7 @@ def handle(msg):
             bot.sendMessage(chat_id, str(e))
             bot.sendMessage(chat_id, 'follow command please /notif \n\b for example if you want get warning when BTCUSDT lower than 3253.51 or higher than 3255.15 you should send : /notif BTCUSDT 3253.51 3255.15')
     if content_type != 'text':
-        bot.sendMessage(chat_id, 'follow command please /notif')
+        bot.sendMessage(chat_id, 'follow command please /notif \n\b for example if you want get warning when BTCUSDT lower than 3253.51 or higher than 3255.15 you should send : /notif BTCUSDT 3253.51 3255.15')
 
 TOKEN = setting.BOTTOKEN
 
