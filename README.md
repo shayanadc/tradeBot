@@ -1,5 +1,5 @@
 1. insatll python
-2. install pip
+2. install pip3
 3. pip install -r requirement.txt
 4. create .env file in project root
 5. sudo apt-get install -y mongodb-org
