@@ -1,12 +1,11 @@
 import pika
 import sys
-
+import setting
 
 class RabbitMQ:
     def __init__(self, exc_name, exc_type):
         self.exc_name = exc_name
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=setting.RABBITHOST))
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange=self.exc_name, exchange_type=exc_type)
 
@@ -46,7 +45,8 @@ class RabbitMQ:
                 now = datetime.datetime.now()
                 message = 'Hii  Friend ' + '\n\b' + str(body['s']) + ' price is '+ body['c'] + ' at : ' + str(now)
                 import telepot
-                TOKEN = '639857757:AAGvOiTLkizq8mxYVI92wGMgeR_T79kF5dM'
+                import setting
+                TOKEN = setting.BOTTOKEN
                 bot = telepot.Bot(TOKEN)
                 bot.sendMessage(user['name'], message)
                 userCriteria.deleteKey(symbol,user['name'])
