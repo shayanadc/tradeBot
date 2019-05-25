@@ -1,0 +1,34 @@
+version: "3.3"
+services:
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - 5672:5672
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  spotybot:
+    depends_on:
+      - rabbitmq
+      - mongo
+    build: .
+    image: spotbot
+    command: sh -c "python spotyBot.py"
+
+  spotybot-publisher:
+    depends_on:
+      - rabbitmq
+      - mongo
+    image: spotbot
+    command: sh -c "python sync_bnc.py"
+
+  spotybot-consumer:
+    depends_on:
+      - rabbitmq
+      - mongo
+    image: spotbot
+    command: sh -c "python consumer.py"
